@@ -23,13 +23,13 @@ def key_pressed(keypress):
 	# add in the rest to make the turtle move using all the arrow keys!
 	# 
 	#               Fix the WRONG code below!
+        #	        HINT: Arrow keys are: Up - Down - Left - Right
 	#
 	
     if(keypress.keysym == "Up"):
         turtle.forward(10)
-        turtle.backward(10)
-    elif(2 == 1):
-    	turtle.forward(0)
+    elif(keypress.keysym == "Left"):
+    	turtle.backward(10)
 
         
 
