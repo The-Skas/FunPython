@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)http://learnpythonthehardway.org/book/ex1.html -->
+<html class="no-js" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="./Learn Python The Hard Way_files/fonts.css" rel="stylesheet" type="text/css">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="twitter:creator" content="@lzsthw">
+        <title>Learn Python The Hard Way</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="http://learnpythonthehardway.org/book/stylesheets/pure.css" rel="stylesheet">
+        <link href="http://learnpythonthehardway.org/book/stylesheets/pygments.css" rel="stylesheet">
+        <link href="http://learnpythonthehardway.org/book/stylesheets/main.css" rel="stylesheet">
+        <link href="http://learnpythonthehardway.org/book/stylesheets/nav.css" rel="stylesheet">
+        <style>
+        </style>
+ 
+        
+<meta name="generator" content="Docutils 0.11: http://docutils.sourceforge.net/">
+<title>Exercise 1: A Good First Program</title>
+    </head>
+    <body id="wrapper" data-twttr-rendered="true">
+        <div class="master-logo-wrapper clearfix">
+            <a href="http://learnpythonthehardway.org/book/index.html">
+                <div class="python-logo-sprite"></div>
+            </a>
+                <span class="edition-3"><img src="./Learn Python The Hard Way_files/3rd-edition-cloud.png"></span>
+        </div><!-- /.master-logo-wrapper -->
+
+        <div style="clear: both;">
+
+        <div id="main">
+            <div class="chapters-wrapper">
+                  <nav id="chapters">
+                      <div class="masthead-title"></div>
+                      <ul class="masthead">
+                          <li>
+                              <a href="http://learnpythonthehardway.org/book/">
+                                  <div class="nav-tcontents">
+                                      <img src="./Learn Python The Hard Way_files/nav-contents.png"><br>
+                                  main
+                                  </div>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="http://learnpythonthehardway.org/book/ex1.html#video">
+                                  <div class="nav-play-video" id="#video_toggle_icon">
+                                      <img src="./Learn Python The Hard Way_files/nav-play.png"><br>
+                                      play video
+                                      <div class="line-2">(this chapter)</div>
+                                  </div>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="http://learnpythonthehardway.org/book/ex0.html" id="prev_link">
+                                  <div class="nav-previous">
+                                      <img src="./Learn Python The Hard Way_files/nav-previous.png"><br>
+                                      previous
+                                  </div>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="http://learnpythonthehardway.org/book/ex2.html" id="next_link">
+                                  <div class="nav-next">
+                                      <img src="./Learn Python The Hard Way_files/nav-next.png"><br>
+                                      next
+                                  </div>
+                              </a>
+                          </li>
+                          <li><!-- AMBULANCE ICON -->
+                              <a href="http://learnpythonthehardway.org/book/help.html" id="">
+                                  <div class="ambulance">
+                                      <img src="./Learn Python The Hard Way_files/help-ambulance.png"><br>
+                                      help
+                                  </div>
+                              </a>
+                          </li>
+                          <li id="follow">
+                                <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" src="./Learn Python The Hard Way_files/follow_button.44b9611acd9a57c6cc4ba7891abffdaf.en.html" class="twitter-follow-button twitter-follow-button" title="Twitter Follow Button" data-twttr-rendered="true" style="width: 59px; height: 20px;"></iframe>
+                                <script type="text/javascript" async="" src="./Learn Python The Hard Way_files/ga.js"></script><script id="twitter-wjs" src="./Learn Python The Hard Way_files/widgets.js"></script><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                           </li>
+
+                      </ul><!-- /.masthead -->
+                      <!--<img src='images/fa-bullhorn.png' />-->
+                  </nav><!-- /.chapters -->
+            </div><!-- /.chapters-wrapper -->
+
+        <!--- RST STARTS -->
+            <h1 class="title">Exercise 1: A Good First Program</h1>
+            <div class="warning">
+<p class="first admonition-title" id="p0">Warning</p>
+<p class="last" id="p1">If you skipped Exercise 0 then you are not doing this book right.  You must read every single thing I write here and read it carefully.  For example, are you trying to use Python 3 for this book?  I said in Exercise 0 to not use Python 3, so you should <em>not</em> use Python 3.  Are you trying to use IDLE or an IDE?  I said not to use one in Exercise 0, so you should not use one.  If you skipped Exercise 0 please go back to it and read it.</p>
+</div>
+<p id="p2">You should have spent a good amount of time in Exercise 0 learning how to install a text editor, run the text editor, run the Terminal, and work with both of them.  If you haven't done that, then do not go on. You will not have a good time.  This is the only time I'll start an exercise with a warning that you should not skip or get ahead of yourself.</p>
+<p id="p3">Type the following text into a single file named <tt class="docutils literal">ex1.py</tt>.  Python works best with files ending in <tt class="docutils literal">.py</tt>.</p>
+<table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><a name="python--ex1.py-idio.html-1"></a><span class="k">print</span> <span class="s">"Hello World!"</span>
+<a name="python--ex1.py-idio.html-2"></a><span class="k">print</span> <span class="s">"Hello Again"</span>
+<a name="python--ex1.py-idio.html-3"></a><span class="k">print</span> <span class="s">"I like typing this."</span>
+<a name="python--ex1.py-idio.html-4"></a><span class="k">print</span> <span class="s">"This is fun."</span>
+<a name="python--ex1.py-idio.html-5"></a><span class="k">print</span> <span class="s">'Yay! Printing.'</span>
+<a name="python--ex1.py-idio.html-6"></a><span class="k">print</span> <span class="s">"I'd much rather you 'not'."</span>
+<a name="python--ex1.py-idio.html-7"></a><span class="k">print</span> <span class="s">'I "said" do not touch this.'</span>
+</pre></div>
+</td></tr></tbody></table><p id="p4">If you are on Mac OS X then this is what your text editor might look like if you use <tt class="docutils literal">TextWrangler</tt>:</p>
+<div class="figure align-center">
+<img alt="_static/python/osx_textwrangler.png" src="./Learn Python The Hard Way_files/osx_textwrangler.png">
+</div>
+<p id="p5">If you are on Windows using <tt class="docutils literal">Notepad++</tt> then this is what it would look like:</p>
+<div class="figure align-center">
+<img alt="_static/python/win_notepadpp_ex1.png" src="./Learn Python The Hard Way_files/win_notepadpp_ex1.png">
+</div>
+<p id="p6">Don't worry if your editor doesn't look exactly the same, it should be close though.  When you create this file, keep in mind these points:</p>
+<ol class="arabic simple">
+<li>I did not type the line numbers on the left. Those are printed in the book so I can talk about specific lines by saying, "See line 5..."  You do not type line numbers into Python scripts.</li>
+<li>I have the <tt class="docutils literal">print</tt> at the beginning of the line and it looks exactly the same as what I have in <tt class="docutils literal">ex1.py</tt>.  Exactly means exactly, not kind of sort of the same.  Every single character has to match for it to work. Color doesn't matter, only the characters you type.</li>
+</ol>
+<p id="p7">In Terminal <em>run</em> the file by typing:</p>
+<pre class="code console literal-block"><span class="generic output">python ex1.py</span>
+</pre>
+<p id="p8">If you did it right then you should see the same output as I in the <em>What You Should See</em> section of this exercise. If not, you have done something wrong.  No, the computer is not wrong.</p>
+<div class="section" id="what-you-should-see">
+<h1>What You Should See</h1>
+<p id="p9">On Mac OS X in the Terminal you should see this:</p>
+<div class="figure align-center">
+<img alt="_static/python/osx_terminal_ex1.png" src="./Learn Python The Hard Way_files/osx_terminal_ex1.png">
+</div>
+<p id="p10">On Windows in PowerShell you should see this:</p>
+<div class="figure align-center">
+<img alt="_static/python/win_powershell_ex1.png" src="./Learn Python The Hard Way_files/win_powershell_ex1.png">
+</div>
+<p id="p11">You may see different names, before the <tt class="docutils literal">python ex1.py</tt> command, but the important part is that you type the command and see the output is the same as mine.</p>
+<p id="p12">If you have an error it will look like this:</p>
+<pre class="literal-block">$ python ex/ex1.py
+  File "ex/ex1.py", line 3
+    print "I like typing this.
+                             ^
+SyntaxError: EOL while scanning string literal
+</pre>
+<p id="p13">It's important that you can read these errors messages because you will be making many of these mistakes.  Even I make many of these mistakes.  Let's look at this line by line.</p>
+<ol class="arabic simple">
+<li>We ran our command in the Terminal to run the <tt class="docutils literal">ex1.py</tt> script.</li>
+<li>Python tells us that the file <tt class="docutils literal">ex1.py</tt> has an error on line 3.</li>
+<li>It prints this line of code for us to see it.</li>
+<li>Then it puts a <tt class="docutils literal">^</tt> (caret) character to point at where the problem is.  Notice the missing <tt class="docutils literal">"</tt> (double-quote) character?</li>
+<li>Finally, it prints out a "SyntaxError" and tells us something about what might be the error.  Usually these are very cryptic, but if you copy that text into a search engine, you will find someone else who's had that error and you can probably figure out how to fix it.</li>
+</ol>
+<div class="warning">
+<p class="first admonition-title" id="p14">Warning</p>
+<p id="p15">If you are from another country, and you get errors about ASCII encodings, then put this at the top of your Python scripts:</p>
+<pre class="literal-block"># -*- coding: utf-8 -*-
+</pre>
+<p class="last" id="p16">It will fix them so that you can use Unicode UTF-8 in your scripts without a problem.</p>
+</div>
+</div>
+<div class="section" id="study-drills">
+<h1>Study Drills</h1>
+<p id="p17">The Study Drills contain things you should <em>try</em> to do.  If you can't, skip it and come back later.</p>
+<p id="p18">For this exercise, try these things:</p>
+<ol class="arabic simple">
+<li>Make your script print another line.</li>
+<li>Make your script print only one of the lines.</li>
+<li>Put a <tt class="docutils literal">#</tt> (octothorpe) character at the beginning of a line.  What did it do?  Try to find out what this character does.</li>
+</ol>
+<p id="p19">From now on, I won't explain how each exercise works unless an exercise is different.</p>
+<div class="note">
+<p class="first admonition-title" id="p20">Note</p>
+<p class="last" id="p21">An "octothorpe" is also called a "pound", "hash", "mesh", or any number of names.  Pick the one that makes you chill out.</p>
+</div>
+</div>
+<div class="section" id="common-student-questions">
+<h1>Common Student Questions</h1>
+<p id="p22">These are <em>actual</em> questions that real students have asked when doing this exercise.</p>
+<dl class="docutils">
+<dt>Can I use IDLE?</dt>
+<dd>No, you should use Terminal on OS X and PowerShell on Windows, just like I have here.  If you don't know how to use those, then you can go read the Command Line Crash Course in Appendix A.</dd>
+<dt>How do you get colors in your editor?</dt>
+<dd>Save your file first as a <tt class="docutils literal">.py</tt> file, such as <tt class="docutils literal">ex1.py</tt>.  Then you'll have color when you type.</dd>
+<dt>I get <tt class="docutils literal">SyntaxError: invalid syntax</tt> when I run ex1.py.</dt>
+<dd>You are probably trying to run Python, then trying to type Python again.  Close your Terminal, start it again, and right away type only <tt class="docutils literal">python ex1.py</tt>.</dd>
+<dt>I get <tt class="docutils literal">can't open file 'ex1.py': [Errno 2] No such file or directory</tt>.</dt>
+<dd>You need to be in the same directory as the file you created.  Make sure you use the <tt class="docutils literal">cd</tt> command to go there first.  For example, if you saved your file in <tt class="docutils literal">lpthw/ex1.py</tt>, then you would do <tt class="docutils literal">cd lpthw/</tt> before trying to run <tt class="docutils literal">python ex1.py</tt>.  If you don't know what any of that means, then go through <em>Appendix A</em>.</dd>
+<dt>How do I get my country's language characters into my file?</dt>
+<dd>Make sure you type this at the top of your file: <tt class="docutils literal"># <span class="pre">-*-</span> coding: <span class="pre">utf-8</span> <span class="pre">-*-</span></tt>.</dd>
+<dt>My file doesn't run; I just get the prompt back with no output.</dt>
+<dd>You most likely took the code in my <tt class="docutils literal">ex1.py</tt> file literally and thought that <tt class="docutils literal">print "Hello World!"</tt> meant to type only <tt class="docutils literal">"Hello World!"</tt> into the file, without the <tt class="docutils literal">print</tt>.  Your file has to be <em>exactly</em> like mine.</dd>
+</dl>
+</div>
+        <!-- RST ENDS -->
+
+            <!-- /.help-icon -->
+        <div id="video_holder">
+            <h1>Video</h1>
+            <div id="video" class="row inner">
+                <div class="small-12 small-centered columns">
+                    <div data-paydiv_product="2" id="paydiv"><div class="row">
+    <div class="large-7 columns">
+        
+
+    
+        <h2><span>Purchase The Videos For $29.59<span></span></span></h2>
+
+    <p>For just $29.59 you can get access to all the videos for <a href="http://learnpythonthehardway.org/">Learn Python The Hard Way</a>, <b>plus</b> a PDF of
+    the book and no more popups all in this one location. For $29.59 you get:
+    </p>
+    <ul>
+        <li>All 52 videos, 1 per exercise, almost 2G of video.</li>
+        <li>A PDF of the book.</li>
+        <li>Email help from the author.</li>
+        <li><a href="https://paydiv.io/products/contents/2/">See a list of everything you get before you buy.</a></li>
+    </ul>
+
+    <p>When you buy the videos they will immediately show up <b>right here</b>
+    without any hassles.
+    </p>
+
+    
+
+    <hr>
+    <a href="https://paydiv.io/access/reactivate/">Already Paid? Reactivate Your Purchase Right Now!</a>
+
+    </div>
+    <div class="large-5 columns">
+        
+    
+    <h2><span>Buying Is Easy</span></h2>
+    
+
+    <p>Buying is easy.  Just fill out the form below and we'll get started.
+    </p>
+
+    <form action="https://paydiv.io/access/buy/2/" method="POST" id="purchase_form">
+        <label>
+            <span>Full Name</span>
+            <input type="text" size="20" name="full_name" placeholder="Full Name">
+        </label>
+            
+        <label>
+            <span>Email Address</span>
+            <input type="text" size="20" name="email" placeholder="Email Address">
+        </label>
+
+        
+
+        <div class="large-12 columns">
+  <label for="paywith_credit">
+    <input type="radio" checked="" name="payment_method" value="ccard" id="paywith_credit">
+    <span class="imgs">
+      <img src="./Learn Python The Hard Way_files/pay_visa.png" alt="visa">
+      <img src="./Learn Python The Hard Way_files/pay_master.png" alt="mastercard">
+      <img src="./Learn Python The Hard Way_files/pay_express.png" alt="american express">
+    </span>
+    Pay With Credit Card (by Stripe™)
+  </label>
+</div>
+<div class="large-12 columns">
+  <label for="paywith_paypal">
+    <input type="radio" name="payment_method" value="paypal" id="paywith_paypal">
+    <span class="imgs">
+      <img src="./Learn Python The Hard Way_files/pay_pal.png" alt="paypal">
+    </span>
+    Use your PayPal™ account.
+  </label>
+</div>
+
+
+        <button id="buy-button" type="submit">Buy Learn Python The Hard Way, 3rd Edition</button>
+
+      
+    </form>
+
+    </div>
+</div></div>
+                </div>
+            </div>
+        </div>
+
+        </div><!-- /#main -->
+
+        <div class="ad-deck gold" id="footer">
+            <ul class="retailers clearfix">
+                <li>
+                    <a href="https://paydiv.io/access/buy/2/">
+                        <div class="retailer-name">Zed Shaw</div>
+                        <div class="book-type">PDF + Videos + Updates</div>
+                        <div class="book-price">$29.95</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://www.amazon.com/gp/product/0321884914/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0321884914&linkCode=as2&tag=lepythhawa-20">
+                        <div class="retailer-name">Amazon</div>
+                        <div class="book-type">Paper + DVD</div>
+                        <div class="book-price">$29.95</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://www.amazon.com/gp/product/B00FGUS948/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B00FGUS948&linkCode=as2&tag=lepythhawa-20">
+                        <div class="retailer-name">Amazon</div>
+                        <div class="book-type">Kindle (No Videos)</div>
+                        <div class="book-price">$17.27</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://www.barnesandnoble.com/w/learn-python-the-hard-way-zed-shaw/1112055406?ean=9780321884916">
+                        <div class="retailer-name">B&amp;N</div>
+                        <div class="book-type">Paper + DVD</div>
+                        <div class="book-price">$17.27</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://www.barnesandnoble.com/w/learn-python-the-hard-way-zed-shaw/1112055406?ean=9780133124347&itm=1&usri=learn+python+the+hard+way">
+                        <div class="retailer-name">B&amp;N</div>
+                        <div class="book-type">Nook (No Video)</div>
+                        <div class="book-price">$17.27</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://www.informit.com/store/learn-python-the-hard-way-a-very-simple-introduction-9780321884916">
+                        <div class="retailer-name">InformIT</div>
+                        <div class="book-type">eBook + Paper</div>
+                        <div class="book-price">$43.19</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://ruby.learncodethehardway.org/book/">
+                        <div class="retailer-name">Interested In Ruby?</div>
+                        <div class="book-type">Ruby is also a great language.</div>
+                        <div class="book-price">Learn Ruby The Hard Way</div>
+                    </a>
+                </li>
+
+            </ul><!-- /.places -->
+        </div><!-- /#ad-deck -->
+
+        <script src="./Learn Python The Hard Way_files/jquery.js"></script>
+        <script src="./Learn Python The Hard Way_files/index.js"></script>
+        <script src="./Learn Python The Hard Way_files/jzed.js"></script>
+        <script src="./Learn Python The Hard Way_files/video.js"></script>
+        <link rel="stylesheet" href="https://paydiv.io/static/js/videojs/video-js.css">
+        <script src="./Learn Python The Hard Way_files/paydiv.js"></script>
+        <script src="./Learn Python The Hard Way_files/app.js"></script>
+        <script src="./Learn Python The Hard Way_files/littools.js"></script>
+        <script type="text/javascript">
+        
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-24168052-1']);
+        _gaq.push(['_trackPageview']);
+        
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+        
+        </script>
+
+
+        <script src="./Learn Python The Hard Way_files/littools.js"></script>
+
+        
+
+
+</div></body></html>
