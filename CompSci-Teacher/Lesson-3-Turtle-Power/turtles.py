@@ -43,7 +43,7 @@ def f(length, depth):
      right(60)
      f(length/3, depth-1)
  
-f(500, 5)
+# f(500, 5)
 
-# recTriangle(-200,-200,500.0)
+recTriangle(-200,-200,500.0)
     
