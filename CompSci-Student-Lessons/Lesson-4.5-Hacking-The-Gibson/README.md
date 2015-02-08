@@ -11,4 +11,5 @@ HINT: the computer password is a number between 1 and 100000
 You have to be fast! 
 ------------
 *run the hack_my_password.py
+
 *make sure to have both the .py and .pyc in the same directory!
