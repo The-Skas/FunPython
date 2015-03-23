@@ -1,8 +1,50 @@
 import time
 import pdb
 
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
 
 class Room(object):
+    _all_rooms = []
+
+    @classmethod
+    def setup(self):
+        for room in self._all_rooms:
+            room_description = room.description
+
+            new_description = ""
+            for word in room_description.split(" "):
+                new_word = word
+
+                start_bracket = word.find("{")
+                end_bracket = word.find("}")
+
+                if start_bracket >= 0 and end_bracket >= 0:
+                    #get word between curly bracked {word here}
+                    
+                    item_name = word[start_bracket + 1:end_bracket]
+
+                    item = room.get_item_in_room(item_name) \
+                            or player.item_in_inventory(item_name)
+
+
+
+                    if(item):
+                        new_word = word.replace('{'+item_name+'}', str(item))
+
+                new_description += new_word + " "
+
+            room.description = new_description
+
+
+
     def __init__(self, name):
         self.room_name = name.lower()
 
@@ -29,8 +71,18 @@ class Room(object):
         else:
             return None
 
+
+    def remove_item_from_room(self, item):
+        try:
+            item_index = self.contents_of_scene.index(item)
+
+            self.contents_of_scene.pop(item_index)
+            return True
+        except ValueError:                
+            return False
+
     def connects_to(self, a_room, through_dir=0, condition='True',
-            msg_on_true=None, msg_on_false=None ):
+            msg_on_true="", msg_on_false="" ):
         
 
         a_room_exists = isinstance(a_room,Room)
@@ -56,15 +108,26 @@ class Item(object):
         self.can_pickup = False
         self.can_use = False
 
+
+
+        self.on_use_destroy = True
+        self.description = ""
         # Intialise msgs
         self.on_pickup()
         self.on_use()
         self.on_use_with()
 
+    def use_with(self):
+        #Set a method name to a self. name
+        prettyprint(self.use_with_pass_msg)
+        exec(self.use_with_action)
+
+
+
     def on_use_with(self, use_with=None, action='None', 
       pass_msg = None,
       fail_msg = "I can't use it with that."):
-        self.use_with = use_with
+        self.use_with_item = use_with
         self.use_with_action = action
         self.use_with_fail_msg = fail_msg
         self.use_with_pass_msg = pass_msg
@@ -92,25 +155,72 @@ class Item(object):
 
 
 
+    def __str__(self):
+        return bcolors.OKBLUE + self.name + bcolors.ENDC
+
 
 class Player(object):
 
     def __init__(self, starts_in=None):
         self.current_room = starts_in
         self.inventory = []
+        self.has_won = False
+    def input_word_to_dir(self,_dir):
+        _dir = _dir.upper()
+
+
+        if _dir in DIRECTIONS:
+            return _dir
+        if "NORTH" in _dir:
+            return "N"
+        elif "SOUTH" in _dir:
+            return "S"
+        elif "EAST" in _dir:
+            return "E"
+        elif "WEST" in _dir:
+            return "W"
+        else:
+            return ""
+
 
     def starts_in(self,room):
         self.current_room = room
 
     def start_game(self):
+        Room.setup()
         print self.current_room.description
-        while(True):
+        while(not self.has_won):
             self.input_action(raw_input(" > "))
+
+    def change_room(self, room):
+        self.current_room = room
+
+        prettyprint(self.current_room.description)
+
+    def move(self, _dir):
+        try:
+            pdb.set_trace()
+
+            _room = self.current_room.connected_rooms[_dir.upper()]
+
+            if eval(_room['condition']):
+                prettyprint(_room['msg_on_true'])
+                return _room['room']
+            else:
+                prettyprint(_room['msg_on_false'])
+                
+
+        except KeyError:
+            prettyprint("There is no path in that direction.")
+        
+        return None
 
     def pick_up(self,item):
         if item.can_pickup:
             # print msg
             self.inventory.append(item)
+            self.current_room.contents_of_scene.remove(item)
+
             print item.pickup_pass_msg
             
             # The action to be performed when we pick up
@@ -120,6 +230,17 @@ class Player(object):
             exec(item.pickup_action)
         else:
             print item.pickup_fail_msg
+    def add_to_inventory(self, item):
+        self.inventory.append(item)
+
+    def remove_item_from_inventory(self, item):
+        try:
+            item_index = self.inventory.index(item)
+
+            self.inventory.pop(item_index)
+            return True
+        except ValueError:
+            return False
 
     def use_item(self,item):
         if item.can_use:
@@ -138,6 +259,27 @@ class Player(object):
         else:
             print item.use_msg_fail
 
+    def use_with(self, item1, item2):
+        pdb.set_trace()
+
+        is_usable_with = item1.use_with_item and \
+          item1.use_with_item.name == item2.name
+
+
+        is_usable_with_reverse = item2.use_with_item and \
+          item2.use_with_item.name == item1.name
+
+
+        if is_usable_with:
+            item1.use_with()
+            return True
+        elif is_usable_with_reverse:
+            item2.use_with()
+            return True
+        else:
+            prettyprint(item1.use_with_fail_msg)
+            return False
+
 
     def item_in_inventory(self, item):
 
@@ -155,13 +297,20 @@ class Player(object):
         # Here I split it
         arr_input = _input.lower().split(" ")
        
+
+        arr_input = [x.strip() for x in arr_input]
         # Now is the first Letter move?
         # if so go in
-        if("move" in arr_input[0::1]):
-            pass
-            # Then first check, if move alone,
-            # then throw a help msg!
-            #   
+        if("move" in arr_input[0::1] and arr_input[1::2]):
+            _dir = self.input_word_to_dir(arr_input[1::2][0])
+
+            if(_dir):
+                new_room = self.move(_dir)
+                if(new_room):
+                    self.change_room(new_room)
+            else:
+                prettyprint("In which direction should I move?")
+
         elif("pickup" in arr_input[0::1]):
             item = None
             try:
@@ -172,59 +321,87 @@ class Player(object):
                 if item:
                     self.pick_up(item)
                 else:
-                    print "I don't see that anywhere here."
+                    prettyprint("I don't see that anywhere here.")
             except Exception, e:
+                prettyprint("What should I pickup?")
 
-                print "What should I pickup?"
         elif("use" in arr_input[0::1] and "with" not in arr_input[2::3]):   
             try:
                 item_name = arr_input[INDEX_ITEM]
-                item = self.item_in_inventory(item_name)
-                if item:
-                    self.use_item(item)
+                item = self.item_in_inventory(item_name) \
+                        or self.current_room.get_item_in_room(item_name)
             
-                item = self.current_room.get_item_in_room(item_name)
+    
                 if item:
                     self.use_item(item)
-
-                if not item:
-                    print "I don't have that anywhere."
+                elif not item:
+                    prettyprint("I don't have that anywhere.")
             except Exception, ex:
-                print "What should I use?", ex
+                prettyprint("What should I use?")
 
             # Perform use operation.
         elif("use" in arr_input[0::1] and "with" in arr_input[2::3]):
-            try:
-                item_name = arr_input[INDEX_ITEM]
-                item = self.item_in_inventory(item_name)
+
+            item_name = arr_input[INDEX_ITEM]
+            item = self.item_in_inventory(item_name) \
+                        or self.current_room.get_item_in_room(item_name)
+            
+            item_with_name = arr_input[INDEX_ITEM_WITH]
+            item_with = self.item_in_inventory(item_with_name) \
+                        or self.current_room.get_item_in_room(item_with_name)
+
+
+            if item and item_with:
+                is_success= self.use_with(item, item_with)
+
+                if(is_success):
+                    if item.on_use_destroy:
+                        self.current_room.remove_item_from_room(item) \
+                            or self.remove_item_from_inventory(item)
+
+                    if item_with.on_use_destroy:
+                        self.current_room.remove_item_from_room(item_with) \
+                            or self.remove_item_from_inventory(item_with)
+
+
+
+
+        
+            elif not item.use_with_item:
+                print "I cant use that with anything."
+
                 
-                item_with_name = arr_input[INDEX_ITEM_WITH]
-                item_with = self.item_in_inventory(item_with_name)
-
-                # if item and :
-                #     self.use_with(item, )
-                    
-                # if not item.use_with:
-                #     print "I cant use that with anything."
-
-            except Exception, ex:
-                print "What should I use it with?", ex
         elif("inventory" in arr_input[0::1]):
             # If player has nothing
             if not self.inventory:
-                print "You have no inventory."
+                prettyprint("I have nothing in my inventory.")
             else:
-                print "Your Inventory:"
+                prettyprint("Your Inventory:")
                 for item in self.inventory:
-                    print "  ",item.name
+                    prettyprint("  "+item.name)
 
+        elif("look" in arr_input[0::1] and not arr_input[1::2]):
+            prettyprint(self.current_room.description)
+
+        elif("look" in arr_input[0::1] and arr_input[1::2]):
+            item = None
+            
+            item = arr_input[INDEX_ITEM]
+            item = self.current_room.get_item_in_room(item)
+
+            # If the item exists
+            if item:
+                prettyprint(item.description)
+            else:
+                prettyprint("I don't see that anywhere here.")
+           
         elif(_input.find("?") != -1
             or _input.find("help") != -1):
             print help_msg()
-
         else:
-            print "I don't understand that."
-            print "Type '?' or 'help'"
+
+            prettyprint("I don't understand that.")
+            prettyprint("Type '?' or 'help'")
 
         return self.current_room
   
@@ -232,19 +409,26 @@ class Player(object):
 
 
 # List of all rooms
-_rooms = []
-def create_room(_room_name):
-    room_names = [room.room_name for room in _rooms]
+def create_room(_room_name, action = None):
+    room_names = [room.room_name for room in Room._all_rooms]
     # The room Doesnt exist
     if _room_name not in room_names:
         new_room = Room(_room_name)
-        _rooms.append(new_room)
+        Room._all_rooms.append(new_room)
+
         return new_room
     else:
         raise TypeError("The room:",room,"already exists!")
 
-def create_item(item, in_room):
-    return in_room.create_item(item)
+def create_item(item, in_room = None, in_player_inventory = False):
+    if in_player_inventory:
+        _item = Item(item, None)
+        player.inventory.append(_item)
+
+        return _item
+    elif in_room:
+        return in_room.create_item(item)
+
 
 def help_msg():
         return """
@@ -262,9 +446,17 @@ def help_msg():
 
         inventory : shows list of items in inventory
 
+        look : describes the room you are in.
+
+        look [item_name] : describes the item you are looking at.
             """
+def prettyprint(_str, indent = 2):
+    arr = _str.split("\n")
+
+    for line in arr:
+        print " "*indent +line
 # DEBUG
-DEBUG = True
+DEBUG = False
 
 
 DIRECTIONS = ["N","S","E", "W"]
@@ -277,7 +469,7 @@ WEST  = "W"
 INDEX_ACTION = 0
 INDEX_ITEM = 1
 INDEX_WITH = 2
-INDEX_ITEM_WITH = 4
+INDEX_ITEM_WITH = 3
 
 
 player = Player()
