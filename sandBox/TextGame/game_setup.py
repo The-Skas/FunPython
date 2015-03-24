@@ -87,6 +87,7 @@ class Room(object):
 
         a_room_exists = isinstance(a_room,Room)
         a_valid_dir   = DIRECTIONS.__contains__(through_dir)
+
         if(a_room_exists and a_valid_dir):
             self.connected_rooms[through_dir] = {}
             self.connected_rooms[through_dir]["room"] = a_room
@@ -165,6 +166,7 @@ class Player(object):
         self.current_room = starts_in
         self.inventory = []
         self.has_won = False
+
     def input_word_to_dir(self,_dir):
         _dir = _dir.upper()
 
@@ -296,8 +298,10 @@ class Player(object):
     
         # Here I split it
         arr_input = _input.lower().split(" ")
-       
+       # [ word1, word2... wordn]
 
+
+       # 'move  ' -> 'move'
         arr_input = [x.strip() for x in arr_input]
         # Now is the first Letter move?
         # if so go in
@@ -394,7 +398,11 @@ class Player(object):
                 prettyprint(item.description)
             else:
                 prettyprint("I don't see that anywhere here.")
-           
+        
+        # hit target_name
+        elif("hit" in arr_input[0::1] and arr_input[1::2]):
+            # Here place hit logic.
+            
         elif(_input.find("?") != -1
             or _input.find("help") != -1):
             print help_msg()

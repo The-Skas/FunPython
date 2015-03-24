@@ -118,7 +118,7 @@ def main():
                     pass_msg="You smash the stone on the chains breaking them! You can move.",
                     fail_msg ="You can't use it like that..",
                     action="player.can_move = True")
-
+    
 
     game_complete = create_room("win")
     game_complete.description = "You escape the dungeon!"
