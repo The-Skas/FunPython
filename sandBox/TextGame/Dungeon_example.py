@@ -89,13 +89,18 @@ def main():
 
     # We create another room
     basement = create_room("Basement")
-    basement.description = "You enter a dark damp basement. \n"+ \
-                           "The pungent air crawls up through your nostrils"+ \
-                           "You can hear the faint screams of prisoners coming from"+ \
-                           " south."
+    basement.description = "You enter a dark damp basement. "+ \
+                           "The pungent air crawls up through your nostrils."+ \
+                           " You can hear the faint screams of prisoners coming from"+ \
+                           " all around. \n\n"+ \
+                           "Infront of you is a {door} with the sign - 'EXIT'."
 
 
+    door = create_item("door", in_room = basement)
+    door.can_use = True
+    door.on_use(pass_msg = "You escape the dungeon!", action="player.has_won = True")
 
+    door.on_pickup(fail_msg="I can't pick up a door! Are you mad?")
     # we set a value called player can_move to False.
 
     player.can_move = False
@@ -106,6 +111,7 @@ def main():
         condition =  "player.can_move == True",
         msg_on_true = "",
         msg_on_false = "I can't move while im in chains!")
+
 
     # What happens when we use 'stone' in combination
     # with 'chain'.
@@ -120,14 +126,10 @@ def main():
                     action="player.can_move = True")
     
 
-    game_complete = create_room("win")
-    game_complete.description = "You escape the dungeon!"
-    basement.connects_to(game_complete, through_dir=EAST)
-
-    player.start_game()
-
+#----DO NOT EDIT BELOW THIS---
 main()
 # Start game.
+player.start_game()
 
 
 

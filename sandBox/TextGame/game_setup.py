@@ -213,7 +213,6 @@ class Player(object):
 
     def move(self, _dir):
         try:
-            pdb.set_trace()
 
             _room = self.current_room.connected_rooms[_dir.upper()]
 
@@ -443,7 +442,10 @@ def create_item(item, in_room = None, in_player_inventory = False):
 
         return _item
     elif in_room:
-        return in_room.create_item(item)
+        if(isinstance(in_room, str)):
+            return Room.get_room_by_name(in_room).create_item(item)
+        else:
+            return in_room.create_item(item)
 
 
 def help_msg():

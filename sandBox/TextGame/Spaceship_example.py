@@ -34,13 +34,16 @@ glob.can_pickup = False
 
 zapper = create_item("zapper", in_player_inventory=True)
 
+zapper.on_use(fail_msg = "I'm not shooting myself!")
+
+
 zapper.on_use_with(use_with=glob,
-				 pass_msg="You shoot the big glob in the face! It drops a key.",
-				 action='player.change_room("space glob attack")')
+				 pass_msg="You shoot the big glob in the face causing an-\n acidic eruption. ",
+				 action='create_item("key",in_room="space intro")')
+
 
 player.starts_in(space_cabin)
 
-s
 
 player.start_game()
 
