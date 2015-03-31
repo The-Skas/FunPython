@@ -55,3 +55,4 @@ class Computer:
 
 
 computer = Computer(1)
+time.sleep(3)
