@@ -42,8 +42,11 @@ class Room(object):
                 new_description += new_word + " "
 
             room.description = new_description
-
-
+    @classmethod
+    def get_room_by_name(self, room_name):
+        for room in self._all_rooms:
+            if room.room_name == room_name:
+                return room
 
     def __init__(self, name):
         self.room_name = name.lower()
@@ -55,6 +58,7 @@ class Room(object):
 
         # What it connects to
         self.connected_rooms = {}
+
 
     def enter(self):
         print(self.description)
@@ -166,6 +170,7 @@ class Player(object):
         self.current_room = starts_in
         self.inventory = []
         self.has_won = False
+        self.health = 100
 
     def input_word_to_dir(self,_dir):
         _dir = _dir.upper()
@@ -192,9 +197,16 @@ class Player(object):
         Room.setup()
         print self.current_room.description
         while(not self.has_won):
+            if self.health <= 0:
+                prettyprint("You died.")
+                return 
+
             self.input_action(raw_input(" > "))
 
     def change_room(self, room):
+        if isinstance(room, str):
+            room= Room.get_room_by_name(room)
+
         self.current_room = room
 
         prettyprint(self.current_room.description)
@@ -262,7 +274,6 @@ class Player(object):
             print item.use_msg_fail
 
     def use_with(self, item1, item2):
-        pdb.set_trace()
 
         is_usable_with = item1.use_with_item and \
           item1.use_with_item.name == item2.name
@@ -398,12 +409,8 @@ class Player(object):
                 prettyprint(item.description)
             else:
                 prettyprint("I don't see that anywhere here.")
-        
-        # hit target_name
-        elif("hit" in arr_input[0::1] and arr_input[1::2]):
-            # Here place hit logic.
-            
-        elif(_input.find("?") != -1
+    
+        elif(_input.find("?") != -1 
             or _input.find("help") != -1):
             print help_msg()
         else:
@@ -426,7 +433,8 @@ def create_room(_room_name, action = None):
 
         return new_room
     else:
-        raise TypeError("The room:",room,"already exists!")
+        return Room.get_room_by_name(_room_name)
+        # raise TypeError("The room:",room,"already exists!")
 
 def create_item(item, in_room = None, in_player_inventory = False):
     if in_player_inventory:

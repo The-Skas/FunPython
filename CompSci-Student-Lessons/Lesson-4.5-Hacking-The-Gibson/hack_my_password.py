@@ -23,4 +23,10 @@ computer.guess_password(5555)
 computer.guess_password(645)
 
 
+_pass = 0
+while(True):
+	_pass += 1
+	computer.guess_password(_pass)
+
+
 
